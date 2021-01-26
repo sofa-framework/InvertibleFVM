@@ -28,6 +28,7 @@
 #include <sofa/helper/vector.h>
 #include <sofa/defaulttype/VecTypes.h>
 #include <sofa/defaulttype/Mat.h>
+#include <sofa/defaulttype/Vec.h>
 //#include <sofa/helper/OptionsGroup.h>
 
 

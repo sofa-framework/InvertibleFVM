@@ -242,16 +242,17 @@ inline void InvertibleFVMForceField<DataTypes>::reinit()
         Coord N1 = cross( ac, ad ); // face (a,c,d)
         Coord N0 = cross( bd, bc ); // face (b,c,d)
 
+        const auto detA = defaulttype::determinant(A);
         // the node ordering changes the normal directions
-        Real coef = determinant(A)>0 ? (Real)(1/6.0) : (Real)(-1/6.0);
+        Real coef = detA>0 ? (Real)(1/6.0) : (Real)(-1/6.0);
 
         ////// compute b_i = -(Nj+Nk+Nl)/3 where N_j are the area-weighted normals of the triangles incident to the node i
         _b[i][0] = ( N1 + N2 + N3 ) * coef;
         _b[i][1] = ( N0 + N2 + N3 ) * coef;
         _b[i][2] = ( N0 + N1 + N3 ) * coef;
 
-        msg_info_when( _verbose.getValue() && determinant(A) < 0 )
-                <<"detA "<<determinant(A) ;
+        msg_info_when( _verbose.getValue() && detA < 0 )
+                <<"detA "<<detA ;
 
         msg_info()
                 <<"InvertibleFVMForceField b " << msgendl
@@ -294,7 +295,7 @@ inline void InvertibleFVMForceField<DataTypes>::addForce (const core::Mechanical
         Mat<3,3,Real> F = A * _initialTransformation[elementIndex];
 
         msg_info_when(_verbose.getValue() )
-                << "InvertibleFVMForceField F "<<F<<" (det= "<<determinant(F)<<")" ;
+                << "InvertibleFVMForceField F "<<F<<" (det= "<<defaulttype::determinant(F)<<")" ;
 
         Mat<3,3,Real> U, V; // the two rotations
         Vec<3,Real> F_diagonal, P_diagonal; // diagonalized strain, diagonalized stress

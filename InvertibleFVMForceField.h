@@ -25,13 +25,10 @@
 #include <InvertibleFVM/config.h>
 #include <sofa/core/behavior/ForceField.h>
 #include <sofa/core/topology/BaseMeshTopology.h>
-#include <sofa/helper/vector.h>
+#include <sofa/type/vector.h>
 #include <sofa/defaulttype/VecTypes.h>
-#include <sofa/defaulttype/Mat.h>
-#include <sofa/defaulttype/Vec.h>
-//#include <sofa/helper/OptionsGroup.h>
-
-
+#include <sofa/type/Mat.h>
+#include <sofa/type/Vec.h>
 
 namespace sofa
 {
@@ -85,35 +82,25 @@ protected:
     /// @{
 
     /// Displacement vector (deformation of the 4 corners of a tetrahedron)
-    typedef defaulttype::VecNoInit<12, Real> Displacement;
+    typedef type::VecNoInit<12, Real> Displacement;
 
     /// Rigid transformation (rotation) matrix
-    typedef defaulttype::MatNoInit<3, 3, Real> Transformation;
+    typedef type::MatNoInit<3, 3, Real> Transformation;
 
     /// @}
 
-    helper::vector<Transformation> _rotationsU;
-    helper::vector<Transformation> _rotationsV;
-
-
-
-    /* typedef std::pair<int,Real> Col_Value;
-     typedef vector< Col_Value > CompressedValue;
-     typedef vector< CompressedValue > CompressedMatrix;
-     CompressedMatrix _stiffnesses;
-     SReal m_potentialEnergy;*/
-
-
+    type::vector<Transformation> _rotationsU;
+    type::vector<Transformation> _rotationsV;
 
     core::topology::BaseMeshTopology* _mesh;
     const VecTetra *_indexedTetra;
 
-    helper::vector<Transformation> _initialTransformation;
-    helper::vector<Transformation> _initialRotation;
+    type::vector<Transformation> _initialTransformation;
+    type::vector<Transformation> _initialRotation;
 
-    helper::vector<Transformation> _U;
-    helper::vector<Transformation> _V;
-    helper::vector<defaulttype::Vec<3,Coord> > _b;
+    type::vector<Transformation> _U;
+    type::vector<Transformation> _V;
+    type::vector<type::Vec<3,Coord> > _b;
 
     InvertibleFVMForceFieldInternalData<DataTypes> data;
     friend class InvertibleFVMForceFieldInternalData<DataTypes>;

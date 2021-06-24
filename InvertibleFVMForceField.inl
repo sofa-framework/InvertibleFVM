@@ -42,7 +42,7 @@ namespace forcefield
 {
 
 using std::set;
-using namespace sofa::defaulttype;
+using namespace sofa::type;
 
 template <class DataTypes>
 InvertibleFVMForceField<DataTypes>::InvertibleFVMForceField()
@@ -242,7 +242,7 @@ inline void InvertibleFVMForceField<DataTypes>::reinit()
         Coord N1 = cross( ac, ad ); // face (a,c,d)
         Coord N0 = cross( bd, bc ); // face (b,c,d)
 
-        const auto detA = defaulttype::determinant(A);
+        const auto detA = type::determinant(A);
         // the node ordering changes the normal directions
         Real coef = detA>0 ? (Real)(1/6.0) : (Real)(-1/6.0);
 
@@ -295,10 +295,10 @@ inline void InvertibleFVMForceField<DataTypes>::addForce (const core::Mechanical
         Mat<3,3,Real> F = A * _initialTransformation[elementIndex];
 
         msg_info_when(_verbose.getValue() )
-                << "InvertibleFVMForceField F "<<F<<" (det= "<<defaulttype::determinant(F)<<")" ;
+                << "InvertibleFVMForceField F "<<F<<" (det= "<<type::determinant(F)<<")" ;
 
         Mat<3,3,Real> U, V; // the two rotations
-        Vec<3,Real> F_diagonal, P_diagonal; // diagonalized strain, diagonalized stress
+        type::Vec<3,Real> F_diagonal, P_diagonal; // diagonalized strain, diagonalized stress
 
         helper::Decompose<Real>::SVD_stable( F, U, F_diagonal, V );
 

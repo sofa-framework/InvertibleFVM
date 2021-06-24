@@ -503,9 +503,9 @@ void InvertibleFVMForceField<DataTypes>::draw(const core::visual::VisualParams* 
             {
                 float col = (float)((youngModulus[i]-minYoung) / (maxYoung-minYoung));
                 float fac = col * 0.5f;
-                Vec<4,float> color2 = Vec<4,float>(col      , 0.5f - fac , 1.0f-col,1.0f);
-                Vec<4,float> color3 = Vec<4,float>(col      , 1.0f - fac , 1.0f-col,1.0f);
-                Vec<4,float> color4 = Vec<4,float>(col+0.5f , 1.0f - fac , 1.0f-col,1.0f);
+                type::RGBAColor color2{ col      , 0.5f - fac , 1.0f - col,1.0f };
+                type::RGBAColor color3{ col      , 1.0f - fac , 1.0f - col,1.0f };
+                type::RGBAColor color4{ col+0.5f , 1.0f - fac , 1.0f - col,1.0f };
 
                 vparams->drawTool()->drawLines(points[0],1,color2 );
                 vparams->drawTool()->drawLines(points[1],1,color3 );
@@ -517,9 +517,9 @@ void InvertibleFVMForceField<DataTypes>::draw(const core::visual::VisualParams* 
 
         if(!heterogeneous)
         {
-            vparams->drawTool()->drawLines(points[0], 1, Vec<4,float>(0.0,0.5,1.0,1.0));
-            vparams->drawTool()->drawLines(points[1], 1, Vec<4,float>(0.0,1.0,1.0,1.0));
-            vparams->drawTool()->drawLines(points[2], 1, Vec<4,float>(0.5,1.0,1.0,1.0));
+            vparams->drawTool()->drawLines(points[0], 1, type::RGBAColor(0.0,0.5,1.0,1.0));
+            vparams->drawTool()->drawLines(points[1], 1, type::RGBAColor::cyan());
+            vparams->drawTool()->drawLines(points[2], 1, type::RGBAColor(0.5,1.0,1.0,1.0));
         }
     }
     else
@@ -558,10 +558,10 @@ void InvertibleFVMForceField<DataTypes>::draw(const core::visual::VisualParams* 
             {
                 float col = (float)((youngModulus[i]-minYoung) / (maxYoung-minYoung));
                 float fac = col * 0.5f;
-                Vec<4,float> color1 = Vec<4,float>(col      , 0.0f - fac , 1.0f-col,1.0f);
-                Vec<4,float> color2 = Vec<4,float>(col      , 0.5f - fac , 1.0f-col,1.0f);
-                Vec<4,float> color3 = Vec<4,float>(col      , 1.0f - fac , 1.0f-col,1.0f);
-                Vec<4,float> color4 = Vec<4,float>(col+0.5f , 1.0f - fac , 1.0f-col,1.0f);
+                type::RGBAColor color1{ col      , 0.0f - fac , 1.0f - col,1.0f };
+                type::RGBAColor color2{ col      , 0.5f - fac , 1.0f - col,1.0f };
+                type::RGBAColor color3{ col      , 1.0f - fac , 1.0f - col,1.0f };
+                type::RGBAColor color4{ col+0.5f , 1.0f - fac , 1.0f - col,1.0f };
 
                 vparams->drawTool()->drawTriangles(points[0],color1 );
                 vparams->drawTool()->drawTriangles(points[1],color2 );
@@ -574,35 +574,35 @@ void InvertibleFVMForceField<DataTypes>::draw(const core::visual::VisualParams* 
             std::vector< Vector3 > pointsl(2);
             pointsl[0] = x[a];
             pointsl[1] = x[a] - _b[i][0];
-            vparams->drawTool()->drawLines( pointsl, 5, Vec<4,float>(1,1,1,1.0f) );
+            vparams->drawTool()->drawLines( pointsl, 5, type::RGBAColor::white() );
             pointsl[0] = x[b];
             pointsl[1] = x[b] - _b[i][1];
-            vparams->drawTool()->drawLines( pointsl, 5, Vec<4,float>(1,1,1,1.0f) );
+            vparams->drawTool()->drawLines( pointsl, 5, type::RGBAColor::white());
             pointsl[0] = x[c];
             pointsl[1] = x[c] - _b[i][2];
-            vparams->drawTool()->drawLines( pointsl, 5, Vec<4,float>(1,1,1,1.0f) );
+            vparams->drawTool()->drawLines( pointsl, 5, type::RGBAColor::white());
             pointsl[0] = x[d];
             pointsl[1] = x[d] + (_b[i][0]+_b[i][1]+_b[i][2]);
-            vparams->drawTool()->drawLines( pointsl, 5, Vec<4,float>(1,1,1,1.0f) );
+            vparams->drawTool()->drawLines( pointsl, 5, type::RGBAColor::white());
 
 
             std::vector< Vector3 > pointsp(1);
             pointsp[0] = x[a];
-            vparams->drawTool()->drawPoints( pointsp, 20, Vec<4,float>(1,0,0,1.0f) );
+            vparams->drawTool()->drawPoints( pointsp, 20, type::RGBAColor::red());
             pointsp[0] = x[b];
-            vparams->drawTool()->drawPoints( pointsp, 20, Vec<4,float>(0,1,0,1.0f) );
+            vparams->drawTool()->drawPoints( pointsp, 20, type::RGBAColor::green());
             pointsp[0] = x[c];
-            vparams->drawTool()->drawPoints( pointsp, 20, Vec<4,float>(0,0,1,1.0f) );
+            vparams->drawTool()->drawPoints( pointsp, 20, type::RGBAColor::blue());
             pointsp[0] = x[d];
-            vparams->drawTool()->drawPoints( pointsp, 20, Vec<4,float>(1,1,0,1.0f) );
+            vparams->drawTool()->drawPoints( pointsp, 20, type::RGBAColor::yellow());
         }
 
         if(!heterogeneous)
         {
-            vparams->drawTool()->drawTriangles(points[0], Vec<4,float>(0.0,0.0,1.0,1.0));
-            vparams->drawTool()->drawTriangles(points[1], Vec<4,float>(0.0,0.5,1.0,1.0));
-            vparams->drawTool()->drawTriangles(points[2], Vec<4,float>(0.0,1.0,1.0,1.0));
-            vparams->drawTool()->drawTriangles(points[3], Vec<4,float>(0.5,1.0,1.0,1.0));
+            vparams->drawTool()->drawTriangles(points[0], type::RGBAColor::blue());
+            vparams->drawTool()->drawTriangles(points[1], type::RGBAColor(0.0,0.5,1.0,1.0));
+            vparams->drawTool()->drawTriangles(points[2], type::RGBAColor::cyan());
+            vparams->drawTool()->drawTriangles(points[3], type::RGBAColor(0.5,1.0,1.0,1.0));
         }
     }
 }

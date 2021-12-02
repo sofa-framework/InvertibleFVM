@@ -608,7 +608,7 @@ void InvertibleFVMForceField<DataTypes>::draw(const core::visual::VisualParams* 
 }
 
 template<class DataTypes>
-void InvertibleFVMForceField<DataTypes>::addKToMatrix(sofa::defaulttype::BaseMatrix * /*mat*/, SReal /*k*/, unsigned int &/*offset*/)
+void InvertibleFVMForceField<DataTypes>::addKToMatrix(sofa::linearalgebra::BaseMatrix * /*mat*/, SReal /*k*/, unsigned int &/*offset*/)
 {
     dmsg_error()
             <<" addKToMatrix is not implemented. So you may not call it";

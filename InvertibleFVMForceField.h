@@ -140,7 +140,7 @@ public:
     void addDForce(const core::MechanicalParams* mparams,
                            DataVecDeriv& , const DataVecDeriv& ) override ;
 
-    void addKToMatrix(sofa::defaulttype::BaseMatrix *m, SReal kFactor, unsigned int &offset) override ;
+    void addKToMatrix(sofa::linearalgebra::BaseMatrix *m, SReal kFactor, unsigned int &offset) override ;
 
     SReal getPotentialEnergy(const core::MechanicalParams* mparams,
                                      const DataVecCoord&  x) const override ;

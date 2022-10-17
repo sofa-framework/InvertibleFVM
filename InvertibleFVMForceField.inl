@@ -25,7 +25,7 @@
 #include "InvertibleFVMForceField.h"
 #include <sofa/core/behavior/ForceField.inl>
 #include <sofa/core/visual/VisualParams.h>
-#include <SofaBaseTopology/GridTopology.h>
+#include <sofa/component/topology/container/grid/GridTopology.h>
 #include <sofa/simulation/Simulation.h>
 #include <sofa/helper/decompose.h>
 #include <cassert>
@@ -125,7 +125,7 @@ void InvertibleFVMForceField<DataTypes>::init()
         int nx = 2;
         int ny = 1;
         {
-            topology::GridTopology* grid = dynamic_cast<topology::GridTopology*>(_mesh);
+            topology::container::grid::GridTopology* grid = dynamic_cast<topology::container::grid::GridTopology*>(_mesh);
             if (grid != NULL)
             {
                 nx = grid->getNx()-1;

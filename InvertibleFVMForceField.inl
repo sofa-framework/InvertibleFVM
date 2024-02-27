@@ -231,7 +231,9 @@ inline void InvertibleFVMForceField<DataTypes>::reinit()
         msg_info_when(_verbose.getValue())
                 <<"InvertibleFVMForceField initialRotation "<<_initialRotation[i] ;
 
-        _initialTransformation[i].invert( _initialRotation[i] * A );
+        bool hasInverted = _initialTransformation[i].invert( _initialRotation[i] * A );
+        if( !hasInverted )
+            msg_error() << "reinit() : inversion failure";
 
         msg_info_when( _verbose.getValue() )
                 <<"InvertibleFVMForceField _initialTransformation "<<A<<" "<<_initialTransformation[i] ;
@@ -467,7 +469,7 @@ void InvertibleFVMForceField<DataTypes>::draw(const core::visual::VisualParams* 
 
     if (edges)
     {
-        std::vector< Vector3 > points[3];
+        std::vector< Vec3 > points[3];
         typename VecTetra::const_iterator it;
         int i;
         for(it = _indexedTetra->begin(), i = 0 ; it != _indexedTetra->end() ; ++it, ++i)
@@ -524,7 +526,7 @@ void InvertibleFVMForceField<DataTypes>::draw(const core::visual::VisualParams* 
     }
     else
     {
-        std::vector< Vector3 > points[4];
+        std::vector< Vec3 > points[4];
         typename VecTetra::const_iterator it;
         int i;
         for(it = _indexedTetra->begin(), i = 0 ; it != _indexedTetra->end() ; ++it, ++i)
@@ -571,7 +573,7 @@ void InvertibleFVMForceField<DataTypes>::draw(const core::visual::VisualParams* 
                 for(unsigned int i=0 ; i<4 ; i++) points[i].clear();
             }
 
-            std::vector< Vector3 > pointsl(2);
+            std::vector< Vec3 > pointsl(2);
             pointsl[0] = x[a];
             pointsl[1] = x[a] - _b[i][0];
             vparams->drawTool()->drawLines( pointsl, 5, type::RGBAColor::white() );
@@ -586,7 +588,7 @@ void InvertibleFVMForceField<DataTypes>::draw(const core::visual::VisualParams* 
             vparams->drawTool()->drawLines( pointsl, 5, type::RGBAColor::white());
 
 
-            std::vector< Vector3 > pointsp(1);
+            std::vector< Vec3 > pointsp(1);
             pointsp[0] = x[a];
             vparams->drawTool()->drawPoints( pointsp, 20, type::RGBAColor::red());
             pointsp[0] = x[b];
